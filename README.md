@@ -49,8 +49,8 @@ FleetFlow is an AI-powered web application designed to streamline fleet manageme
 
 ## Credits  
 
-**Developed by:** JD  
+**Developed by:** 7afe & JD  
 
-- 📧 Email: deepakjd1226@gmail.com
-- 🔗 LinkedIn: https://www.linkedin.com/in/deepak-j-1206hd/
+- 📧 Email: tawfeeqbahur@gmail.com & deepakjd122@gmail.com
+- 🔗 LinkedIn: https://www.linkedin.com/in/tawfeeqb/ & https://www.linkedin.com/in/deepak-j-1206hd/
 
