@@ -21,7 +21,7 @@ const colors = {
 function log(message, color = 'reset') {
   console.log(`${colors[color]}${message}${colors.reset}`);
 }
-
+//function for sample Routes
 async function addSampleRoutes() {
   log('\n🌱 Adding sample routes to database...', 'cyan');
   
