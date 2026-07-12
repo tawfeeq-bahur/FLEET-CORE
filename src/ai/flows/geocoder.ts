@@ -73,15 +73,16 @@ function getFallbackCoordinates(location: string): GeocodeOutput {
   
   const locationLower = location.toLowerCase();
   const cityKey = Object.keys(cityCoordinates).find(city => 
-    cityLower.includes(city) || city.includes(locationLower)
+    locationLower.includes(city) || city.includes(locationLower)
   );
   
   if (cityKey) {
-    return cityCoordinates[cityKey];
+    const coords = cityCoordinates[cityKey];
+    return { latitude: coords.lat, longitude: coords.lng };
   }
   
   // Default to a central location in India if city not found
-  return { lat: 20.5937, lng: 78.9629 };
+  return { latitude: 20.5937, longitude: 78.9629 };
 }
 
 const prompt = ai.definePrompt({

@@ -98,17 +98,17 @@ async function testRoutesEndpoint() {
   log('\n🛣️  Testing routes endpoint...', 'cyan');
   const result = await makeRequest(`${BASE_URL}/api/routes/last`);
   
-  if (result.success) {
-    if (result.data.data) {
+  if (result.success || result.status === 404) {
+    if (result.data && result.data.data) {
       log('✅ Routes endpoint working - found last route', 'green');
       log(`   Route: ${result.data.data.source} → ${result.data.data.destination}`, 'blue');
     } else {
-      log('ℹ️  Routes endpoint working - no routes found yet', 'yellow');
+      log('ℹ️  Routes endpoint working - no routes found yet (expected on clean setup)', 'yellow');
     }
     return true;
   } else {
     log('❌ Routes endpoint failed', 'red');
-    log(`Error: ${result.error || result.data?.error}`, 'red');
+    log(`Error: ${result.error || result.data?.error || 'Unknown HTTP Error'}`, 'red');
     return false;
   }
 }

@@ -42,35 +42,44 @@ export function FleetSummary({ vehicles, expenses }: FleetSummaryProps) {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <SummaryCard icon={Truck} title="Total Vehicles" value={summary.totalVehicles} />
-      <SummaryCard icon={CircleDollarSign} title="Total Expenses" value={`₹${summary.totalExpenses.toFixed(2)}`} />
-      <SummaryCard icon={Wrench} title="In Maintenance" value={summary.maintenance} />
-      <SummaryCard icon={Fuel} title="Ongoing Trips" value={summary.onTrip} />
+      <SummaryCard icon={Truck} title="Total Vehicles" value={summary.totalVehicles} monoLabel="SYS_ASSETS" colorClass="text-slate-600 dark:text-slate-400" />
+      <SummaryCard icon={CircleDollarSign} title="Total Expenses" value={summary.totalExpenses > 0 ? `₹${summary.totalExpenses.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "₹0.00"} monoLabel="FIN_EXPENDITURE" colorClass="text-amber-600 dark:text-amber-400" />
+      <SummaryCard icon={Wrench} title="In Maintenance" value={summary.maintenance} monoLabel="SYS_ALERT" colorClass="text-rose-600 dark:text-rose-400" />
+      <SummaryCard icon={Fuel} title="Ongoing Trips" value={summary.onTrip} monoLabel="LOGISTICS_OPS" colorClass="text-emerald-600 dark:text-emerald-400" />
 
-      <Card className="md:col-span-2 lg:col-span-4">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Lightbulb className="text-yellow-500" />
-            AI-Powered Insights
-          </CardTitle>
-          <CardDescription>
-            Actionable insights based on your fleet's current activity.
-          </CardDescription>
+      <Card className="md:col-span-2 lg:col-span-4 border border-border/80 bg-card shadow-luxury rounded-xl overflow-hidden">
+        <CardHeader className="border-b border-border/50 bg-secondary/20 py-4 px-6">
+          <div className="flex items-center gap-3">
+            <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+              <Lightbulb className="h-5 w-5" />
+            </div>
+            <div>
+              <CardTitle className="font-headline text-lg tracking-tight italic font-semibold">
+                Operations Briefing
+              </CardTitle>
+              <CardDescription className="text-[10px] font-mono tracking-wider uppercase text-muted-foreground">
+                AI-Powered Ledger Diagnostics & Insights
+              </CardDescription>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-0 p-0 divide-y divide-border/50">
           <InsightItem 
-            title="Efficiency Insight" 
-            text={insights.efficiencyInsight} 
+            title="Operational Efficiency" 
+            text={insights.efficiencyInsight}
+            monoLabel="SYS_EFFICIENCY"
           />
           <InsightItem 
-            title="Cost Saving Suggestion" 
+            title="Capital Optimization" 
             text={insights.costSavingSuggestion} 
+            monoLabel="CAPITAL_OPTIMIZE"
           />
           <InsightItem 
-            title="Anomaly Detection" 
+            title="System Anomalies" 
             text={insights.anomalyDetection}
+            monoLabel="SYS_ANOMALY"
             icon={insights.anomalyDetection.toLowerCase().includes("normal") ? undefined : AlertTriangle}
-            iconColor="text-orange-500"
+            iconColor="text-rose-500"
           />
         </CardContent>
       </Card>
@@ -78,25 +87,62 @@ export function FleetSummary({ vehicles, expenses }: FleetSummaryProps) {
   );
 }
 
-const SummaryCard = ({ icon: Icon, title, value }: { icon: React.ElementType; title: string; value: number | string }) => (
-  <Card>
-    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-      <CardTitle className="text-sm font-medium">{title}</CardTitle>
-      <Icon className="h-4 w-4 text-muted-foreground" />
+const SummaryCard = ({ 
+  icon: Icon, 
+  title, 
+  value, 
+  monoLabel,
+  colorClass 
+}: { 
+  icon: React.ElementType; 
+  title: string; 
+  value: number | string; 
+  monoLabel: string;
+  colorClass?: string;
+}) => (
+  <Card className="border border-border/80 bg-card shadow-luxury hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 rounded-xl overflow-hidden group">
+    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 pt-5 px-5">
+      <div className="flex flex-col gap-1">
+        <span className="text-[10px] font-mono tracking-widest text-muted-foreground uppercase">{monoLabel}</span>
+        <CardTitle className="text-xs font-semibold text-foreground/80 tracking-tight font-body uppercase">{title}</CardTitle>
+      </div>
+      <div className={`p-2 rounded-lg bg-secondary/50 group-hover:bg-secondary transition-colors duration-300 ${colorClass || 'text-muted-foreground'}`}>
+        <Icon className="h-4 w-4" />
+      </div>
     </CardHeader>
-    <CardContent>
-      <div className="text-2xl font-bold">{value}</div>
+    <CardContent className="pb-5 px-5 pt-0">
+      <div className="text-2xl font-bold font-mono-stats tracking-tight text-foreground">{value}</div>
     </CardContent>
   </Card>
 );
 
-const InsightItem = ({ title, text, icon: Icon, iconColor }: { title: string, text: string, icon?: React.ElementType, iconColor?: string }) => (
-  <div className="p-3 rounded-lg bg-muted/50 flex items-start gap-3">
-    {Icon && <Icon className={`h-5 w-5 mt-0.5 flex-shrink-0 ${iconColor || ''}`} />}
-    <div>
-      <h4 className="font-semibold text-sm">{title}</h4>
-      <p className="text-sm text-muted-foreground">{text}</p>
+const InsightItem = ({ 
+  title, 
+  text, 
+  monoLabel,
+  icon: Icon, 
+  iconColor 
+}: { 
+  title: string; 
+  text: string; 
+  monoLabel: string;
+  icon?: React.ElementType; 
+  iconColor?: string;
+}) => (
+  <div className="p-5 flex items-start gap-4 hover:bg-secondary/10 transition-colors duration-200">
+    <div className="flex-1 space-y-1">
+      <div className="flex items-center gap-3">
+        <span className="text-[9px] font-mono tracking-widest text-muted-foreground uppercase">{monoLabel}</span>
+        <span className="h-1 w-1 rounded-full bg-border" />
+        <h4 className="font-semibold text-sm text-foreground">{title}</h4>
+      </div>
+      <p className="text-sm text-muted-foreground font-body leading-relaxed">{text}</p>
     </div>
+    {Icon && (
+      <div className={`p-2 rounded-lg bg-destructive/10 ${iconColor || 'text-destructive'}`}>
+        <Icon className="h-4 w-4" />
+      </div>
+    )}
   </div>
 );
 

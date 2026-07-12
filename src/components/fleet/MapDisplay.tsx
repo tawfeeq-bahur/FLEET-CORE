@@ -12,8 +12,11 @@ import { Hospital, Fuel, Utensils, Bed, Bath } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 
 // Fix for default Leaflet icon path issue with bundlers
+// @ts-ignore
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+// @ts-ignore
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
+// @ts-ignore
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 

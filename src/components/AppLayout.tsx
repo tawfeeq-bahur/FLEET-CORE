@@ -144,14 +144,14 @@ const useGlobalExpenses = () => {
         };
     }, []);
 
-    const setGlobalExpenses = (newExpenses: Expense[] | ((prev: Expense[]) => Expense[])) => {
+    const setGlobalExpenses = React.useCallback((newExpenses: Expense[] | ((prev: Expense[]) => Expense[])) => {
         if (typeof newExpenses === 'function') {
             globalExpenses = newExpenses(globalExpenses);
         } else {
             globalExpenses = newExpenses;
         }
         expenseListeners.forEach(listener => listener(globalExpenses));
-    };
+    }, []);
 
     return [expenses, setGlobalExpenses] as const;
 };
@@ -173,14 +173,14 @@ const useGlobalTrips = () => {
         };
     }, []);
 
-    const setGlobalTrips = (newTrips: Trip[] | ((prev: Trip[]) => Trip[])) => {
+    const setGlobalTrips = React.useCallback((newTrips: Trip[] | ((prev: Trip[]) => Trip[])) => {
         if (typeof newTrips === 'function') {
             globalTrips = newTrips(globalTrips);
         } else {
             globalTrips = newTrips;
         }
         tripListeners.forEach(listener => listener(globalTrips));
-    };
+    }, []);
 
     return [trips, setGlobalTrips] as const;
 };
@@ -313,7 +313,7 @@ export const SharedStateProvider = ({ children }: { children: ReactNode }) => {
     };
 
     loadDataFromDatabase();
-  }, [setTrips, setExpenses]);
+  }, []);
 
   const login = (username: string, password: string, adminCode?: string): boolean => {
     // Admin login - requires 6-digit admin code
@@ -671,7 +671,7 @@ export const SharedStateProvider = ({ children }: { children: ReactNode }) => {
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { user, logout } = useSharedState();
+  const { vehicles, trips, user, logout } = useSharedState();
 
   if (!user) {
     return <LoginPage />;
@@ -684,22 +684,23 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-          <div className="flex min-h-screen">
-            <Sidebar>
-              <SidebarHeader>
+          <div className="flex min-h-screen w-full bg-background text-foreground transition-colors duration-300">
+            <Sidebar className="border-r border-sidebar-border bg-sidebar-background">
+              <SidebarHeader className="p-4 border-b border-sidebar-border/50">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 rounded-full bg-sidebar-primary text-sidebar-primary-foreground">
-                            <Truck className="h-4 w-4" />
-                        </Button>
+                    <div className="flex items-center gap-2.5">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground font-headline text-lg font-bold italic shadow-luxury">
+                            F
+                        </div>
                         <div className="flex flex-col">
-                            <span className="font-semibold font-headline">FleetFlow</span>
+                            <span className="font-semibold font-headline text-base tracking-tight italic">FleetFlow</span>
+                            <span className="text-[9px] font-mono tracking-widest text-muted-foreground uppercase">Logistics Ledger</span>
                         </div>
                     </div>
                 </div>
               </SidebarHeader>
-              <SidebarContent>
-                <SidebarMenu>
+              <SidebarContent className="p-3">
+                <SidebarMenu className="space-y-1">
                   {menuItems.map((item) => (
                     <SidebarMenuItem key={item.href}>
                       <SidebarMenuButton
@@ -707,11 +708,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                         isActive={pathname === item.href}
                         tooltip={{
                           children: item.label,
-                          className: "bg-primary text-primary-foreground",
+                          className: "bg-primary text-primary-foreground font-mono text-xs",
                         }}
+                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
+                          pathname === item.href
+                            ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium shadow-luxury"
+                            : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50"
+                        }`}
                       >
                         <Link href={item.href}>
-                          <item.icon />
+                          <item.icon className="h-4 w-4 shrink-0" />
                           <span>{item.label}</span>
                         </Link>
                       </SidebarMenuButton>
@@ -719,51 +725,85 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                   ))}
                 </SidebarMenu>
               </SidebarContent>
-              <SidebarFooter className="space-y-3">
-                 <Button variant="ghost" className="w-full justify-start" onClick={logout}>
-                    <LogOut className="mr-2" /> Logout
+              <SidebarFooter className="space-y-4 border-t border-sidebar-border/50 p-4 bg-sidebar-background/40">
+                 <Button 
+                   variant="ghost" 
+                   className="w-full justify-start text-xs font-mono tracking-wider uppercase text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50" 
+                   onClick={logout}
+                 >
+                    <LogOut className="mr-2 h-3.5 w-3.5" /> Logout
                  </Button>
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={`https://placehold.co/40x40.png?text=${userFallback}`} alt="User" data-ai-hint="person portrait" />
-                    <AvatarFallback>{userFallback}</AvatarFallback>
+                <div className="flex items-center gap-3 pt-2">
+                  <Avatar className="h-8 w-8 border border-sidebar-border">
+                    <AvatarImage src={`https://api.dicebear.com/7.x/bottts/svg?seed=${userFallback}&backgroundColor=transparent`} alt="User" />
+                    <AvatarFallback className="font-mono text-xs">{userFallback}</AvatarFallback>
                   </Avatar>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium">{userName}</span>
-                    <span className="text-xs text-muted-foreground">{userEmail}</span>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-xs font-semibold truncate text-foreground">{userName}</span>
+                    <span className="text-[10px] font-mono text-muted-foreground truncate">{userEmail}</span>
                   </div>
                 </div>
               </SidebarFooter>
             </Sidebar>
-            <div className="flex flex-col w-full">
-                <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/80 backdrop-blur-sm px-4 md:px-6">
-                  <SidebarTrigger className="md:hidden" />
-                  
-                  <div className="flex-1">
-                    {/* Placeholder for breadcrumbs or page title */}
+            <div className="flex flex-col w-full min-w-0">
+                <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b bg-background/80 backdrop-blur-md px-4 md:px-6">
+                  <div className="flex items-center gap-4">
+                    <SidebarTrigger className="md:hidden" />
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono tracking-widest text-muted-foreground uppercase">System Node:</span>
+                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
+                        SECURE_ON_LINE
+                      </span>
+                    </div>
                   </div>
                   
-                  <div className="flex items-center gap-2">
+                  {/* Dynamic stats in status bar */}
+                  <div className="hidden lg:flex items-center gap-6">
+                    <div className="flex items-center gap-2 border-r border-border/60 pr-6">
+                      <span className="text-[10px] font-mono text-muted-foreground uppercase">Fleet Assets:</span>
+                      <span className="text-xs font-mono-stats font-semibold">{vehicles.length} vhcl</span>
+                    </div>
+                    <div className="flex items-center gap-2 border-r border-border/60 pr-6">
+                      <span className="text-[10px] font-mono text-muted-foreground uppercase">Active Ops:</span>
+                      <span className="text-xs font-mono-stats font-semibold">{trips.filter(t => t.status === 'Ongoing').length} trips</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono text-muted-foreground uppercase">Maintenance:</span>
+                      <span className={`text-xs font-mono-stats font-semibold ${vehicles.filter(v => v.status === 'Maintenance').length > 0 ? 'text-destructive' : 'text-muted-foreground'}`}>
+                        {vehicles.filter(v => v.status === 'Maintenance').length} alert
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
                      {user.role === 'admin' && (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon">
-                                    <Bell />
+                                <Button variant="ghost" size="icon" className="h-8 w-8 relative hover:bg-accent/40 rounded-full">
+                                    <Bell className="h-4 w-4" />
+                                    {vehicles.filter(v => v.status === 'Maintenance').length > 0 && (
+                                        <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full bg-destructive animate-ping" />
+                                    )}
                                     <span className="sr-only">Notifications</span>
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                            <DropdownMenuContent align="end" className="w-56 font-mono text-xs p-1">
+                                <DropdownMenuLabel className="px-2 py-1.5 text-[10px] text-muted-foreground uppercase tracking-wider">Operational Bulletins</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>Service due for TRK-003</DropdownMenuItem>
-                                <DropdownMenuItem>Expense from Ram approved</DropdownMenuItem>
+                                <DropdownMenuItem className="py-2 cursor-pointer">
+                                  <span>● SYS_ALERT: TRK-003 status maintenance</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem className="py-2 cursor-pointer">
+                                  <span>● LEDGER: Expenses auto-verified</span>
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                      )}
                      <ThemeToggle />
                   </div>
                 </header>
-                <SidebarInset>{children}</SidebarInset>
+                <SidebarInset className="bg-background flex flex-col flex-1 p-0 overflow-y-auto">{children}</SidebarInset>
             </div>
           </div>
     </SidebarProvider>
