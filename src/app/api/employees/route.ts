@@ -55,10 +55,22 @@ export async function POST(request: NextRequest) {
       employee: { ...employee, _id: result.insertedId },
       message: 'Employee created successfully' 
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating employee:', error);
+    if (error && error.code === '23505') {
+      const details = error.details || '';
+      const isEmployeeId = details.includes('employee_id');
+      return NextResponse.json(
+        { 
+          error: isEmployeeId 
+            ? 'An employee with this Employee ID already exists. Please use a unique Employee ID.' 
+            : 'An employee with these unique details already exists.' 
+        },
+        { status: 409 }
+      );
+    }
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }

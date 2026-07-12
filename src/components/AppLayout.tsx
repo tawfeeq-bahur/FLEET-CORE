@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import type { Vehicle, Expense, User as UserType, Trip } from "@/lib/types";
+import type { Vehicle, Expense, User as UserType, Trip, EmployeeProfile } from "@/lib/types";
 import { ThemeToggle } from "./ThemeToggle";
 import LoginPage from "@/app/login/page";
 import {
@@ -56,6 +56,7 @@ const employeeMenuItems = [
 // Define the shape of the shared state
 interface SharedState {
   vehicles: Vehicle[];
+  employees: EmployeeProfile[];
   expenses: Expense[];
   trips: Trip[];
   user: UserType | null;
@@ -190,6 +191,7 @@ const useGlobalTrips = () => {
 // Create the provider component
 export const SharedStateProvider = ({ children }: { children: ReactNode }) => {
   const [vehicles, setVehicles] = useState<Vehicle[]>(initialVehicles);
+  const [employees, setEmployees] = useState<EmployeeProfile[]>([]);
   const [expenses, setExpenses] = useGlobalExpenses();
   const [trips, setTrips] = useGlobalTrips();
   const [user, setUser] = useState<UserType | null>(null);
@@ -223,6 +225,11 @@ export const SharedStateProvider = ({ children }: { children: ReactNode }) => {
             if (refreshData.data && refreshData.data.vehicles) {
               setVehicles(refreshData.data.vehicles);
               console.log('✅ Loaded vehicles from database:', refreshData.data.vehicles);
+            }
+            
+            if (refreshData.data && refreshData.data.employees) {
+              setEmployees(refreshData.data.employees);
+              console.log('✅ Loaded employees from database:', refreshData.data.employees);
             }
             
             if (refreshData.data && refreshData.data.trips) {
@@ -301,6 +308,22 @@ export const SharedStateProvider = ({ children }: { children: ReactNode }) => {
           console.warn('⚠️ Expenses endpoint failed:', expensesError);
         }
 
+        try {
+          const employeesResponse = await fetch('/api/employees', {
+            method: 'GET',
+            signal: controller.signal,
+          });
+          if (employeesResponse.ok) {
+            const dbEmployeesRes = await employeesResponse.json();
+            if (dbEmployeesRes.success && dbEmployeesRes.data) {
+              setEmployees(dbEmployeesRes.data);
+              console.log('✅ Loaded employees from individual endpoint:', dbEmployeesRes.data);
+            }
+          }
+        } catch (employeesError) {
+          console.warn('⚠️ Employees endpoint failed:', employeesError);
+        }
+
         console.log('✅ Data loading process completed');
 
       } catch (error) {
@@ -331,9 +354,34 @@ export const SharedStateProvider = ({ children }: { children: ReactNode }) => {
       return false;
     }
     
-    // Employee login (using assigned name as username)
+    // Check password for employee
+    if (password !== '123') {
+      return false;
+    }
+
+    // Try to find employee in database employees list by Employee ID or Name
+    const foundDbEmployee = employees.find(
+      emp => emp.employeeId.toLowerCase() === username.toLowerCase() || 
+             emp.name.toLowerCase() === username.toLowerCase()
+    );
+
+    if (foundDbEmployee) {
+      // Find assigned vehicle from active vehicle list (to get vehicle.id)
+      const vehicle = vehicles.find(
+        v => v.assignedTo === foundDbEmployee.employeeId || 
+             v.assignedTo === foundDbEmployee.name
+      );
+      setUser({
+        username: foundDbEmployee.employeeId, // Set to employeeId so other pages match correctly
+        role: 'employee',
+        assignedVehicleId: vehicle?.id || foundDbEmployee.assignedVehicleId || null
+      });
+      return true;
+    }
+
+    // Fallback: Employee login (using assigned name as username)
     const employee = vehicles.find(v => v.assignedTo?.toLowerCase() === username.toLowerCase());
-    if(employee && password === '123') {
+    if(employee) {
        setUser({ 
             username: employee.assignedTo!, 
             role: 'employee',
@@ -343,9 +391,9 @@ export const SharedStateProvider = ({ children }: { children: ReactNode }) => {
     }
 
 
-    // Employee login (using plate number as username)
+    // Fallback: Employee login (using plate number as username)
     const assignedVehicle = vehicles.find(v => v.plateNumber.toLowerCase() === username.toLowerCase() && v.assignedTo);
-    if (assignedVehicle && password === '123') {
+    if (assignedVehicle) {
         setUser({ 
             username: assignedVehicle.assignedTo!, 
             role: 'employee',
@@ -377,6 +425,10 @@ export const SharedStateProvider = ({ children }: { children: ReactNode }) => {
         
         if (refreshData.data.expenses) {
           setExpenses(refreshData.data.expenses);
+        }
+        
+        if (refreshData.data.employees) {
+          setEmployees(refreshData.data.employees);
         }
         
         console.log('Data refreshed successfully');
@@ -644,6 +696,7 @@ export const SharedStateProvider = ({ children }: { children: ReactNode }) => {
 
   const value = {
     vehicles,
+    employees,
     expenses,
     trips,
     user,

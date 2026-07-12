@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -44,6 +45,7 @@ type AddEmployeeDialogProps = {
 
 export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEmployeeDialogProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -80,13 +82,25 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
         onEmployeeAdded(data.employee);
         form.reset();
         onOpenChange(false);
+        toast({
+          title: "Employee Added",
+          description: `${values.name} has been successfully added to the system.`,
+        });
       } else {
         console.error('Failed to create employee:', data.error);
-        // You could add a toast notification here
+        toast({
+          variant: "destructive",
+          title: "Failed to Add Employee",
+          description: data.error || "An error occurred while creating the employee.",
+        });
       }
     } catch (error) {
       console.error('Error creating employee:', error);
-      // You could add a toast notification here
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+      });
     } finally {
       setIsLoading(false);
     }

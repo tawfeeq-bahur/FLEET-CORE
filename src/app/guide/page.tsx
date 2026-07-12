@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -47,8 +47,24 @@ export default function TripPlannerPage() {
   const [plan, setPlan] = useState<TripPlannerOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [employeesList, setEmployeesList] = useState<any[]>([]);
   const { user, vehicles, addTrip } = useSharedState();
   const { toast } = useToast();
+
+  useEffect(() => {
+    async function loadEmployees() {
+      try {
+        const res = await fetch('/api/employees');
+        const data = await res.json();
+        if (data.success && data.data) {
+          setEmployeesList(data.data);
+        }
+      } catch (err) {
+        console.error('Failed to load employees for assignment:', err);
+      }
+    }
+    loadEmployees();
+  }, []);
 
   const plannerForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,7 +87,30 @@ export default function TripPlannerPage() {
   
   const availableVehicles = vehicles.filter(v => v.status === 'Idle');
   
-  const uniqueEmployees = [...new Map(vehicles.filter(v => v.assignedTo).map(item => [item.assignedTo, item.assignedTo])).values()];
+  // Get all unique employee IDs from db list and vehicles list
+  const allEmployeeIds = new Set<string>();
+  const employeeMap = new Map<string, string>(); // employeeId -> displayName
+  
+  // 1. Add from DB
+  employeesList.forEach(emp => {
+    if (emp.employeeId) {
+      allEmployeeIds.add(emp.employeeId);
+      employeeMap.set(emp.employeeId, `${emp.name} (${emp.employeeId})`);
+    }
+  });
+  
+  // 2. Add from vehicles as fallback/addition
+  vehicles.forEach(v => {
+    if (v.assignedTo && !allEmployeeIds.has(v.assignedTo)) {
+      allEmployeeIds.add(v.assignedTo);
+      employeeMap.set(v.assignedTo, v.assignedTo);
+    }
+  });
+
+  const finalEmployees = Array.from(allEmployeeIds).map(id => ({
+    id,
+    label: employeeMap.get(id) || id
+  }));
 
 
   const pageTitle = user?.role === 'admin' ? "Assign a Trip" : "Trip Planner";
@@ -217,8 +256,8 @@ export default function TripPlannerPage() {
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
-                                                    {uniqueEmployees.length > 0 ? uniqueEmployees.map(emp => (
-                                                        <SelectItem key={emp} value={emp || ''}>{emp}</SelectItem>
+                                                    {finalEmployees.length > 0 ? finalEmployees.map(emp => (
+                                                        <SelectItem key={emp.id} value={emp.id}>{emp.label}</SelectItem>
                                                     )) : <SelectItem value="none" disabled>No employees available</SelectItem>}
                                                 </SelectContent>
                                             </Select>
