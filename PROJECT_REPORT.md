@@ -1,13 +1,13 @@
-# FLEETIX: Project Report
+# Fleet-Core: Project Report
 
-This document contains the detailed content for a project presentation on the FLEETIX application.
+This document contains the detailed content for a project presentation on the Fleet-Core application.
 
 ---
 
 ### **Slide 2: Introduction**
 
 *   **Brief Description of the Project**
-    FLEETIX is an AI-powered web application designed to streamline fleet management operations. It provides a centralized dashboard for real-time monitoring, a smart trip planner for cost and distance estimation, and an expense scanner to simplify financial tracking.
+    Fleet-Core is an AI-powered web application designed to streamline fleet management operations. It provides a centralized dashboard for real-time monitoring, a smart trip planner for cost and distance estimation, and an expense scanner to simplify financial tracking.
 
 *   **Problem Statement**
     Managing a fleet of vehicles involves complex logistics, including tracking vehicle status, planning efficient routes, managing fuel and toll expenses, and monitoring driver activity. Traditional methods are often manual, inefficient, and prone to errors, leading to increased operational costs and reduced productivity.
@@ -20,7 +20,7 @@ This document contains the detailed content for a project presentation on the FL
 ### **Slide 3: Objectives**
 
 *   **Main Aim of the Project**
-    The main aim of FLEETIX is to create an intuitive and comprehensive digital platform that empowers fleet managers and drivers with the tools they need to manage their operations effectively and with minimal effort.
+    The main aim of Fleet-Core is to create an intuitive and comprehensive digital platform that empowers fleet managers and drivers with the tools they need to manage their operations effectively and with minimal effort.
 
 *   **Specific Goals**
     *   To provide a real-time dashboard showing the status of all vehicles.
@@ -31,7 +31,7 @@ This document contains the detailed content for a project presentation on the FL
     *   To offer a responsive, modern UI with both light and dark themes for a professional user experience.
 
 *   **How It Benefits the End User**
-    For **admins**, FLEETIX provides a bird's-eye view of the entire operation, simplifies expense management, and offers insights for better decision-making. For **drivers**, it provides clear trip details, an easy way to log expenses, and a direct line for support.
+    For **admins**, Fleet-Core provides a bird's-eye view of the entire operation, simplifies expense management, and offers insights for better decision-making. For **drivers**, it provides clear trip details, an easy way to log expenses, and a direct line for support.
 
 ---
 
@@ -54,7 +54,7 @@ This document contains the detailed content for a project presentation on the FL
 ### **Slide 5: Proposed System**
 
 *   **Your Solution to the Problem**
-    FLEETIX is a web-based, all-in-one platform that integrates real-time vehicle monitoring, AI-powered trip planning, and automated expense scanning into a single, cohesive dashboard accessible from any device.
+    Fleet-Core is a web-based, all-in-one platform that integrates real-time vehicle monitoring, AI-powered trip planning, and automated expense scanning into a single, cohesive dashboard accessible from any device.
 
 *   **Advantages Over Existing System**
     *   **Unified Experience:** All essential fleet management tools are in one place.
@@ -179,7 +179,7 @@ This document contains the detailed content for a project presentation on the FL
 
 *   **DFD Level 0 (Context Diagram)**
     ```
-    [ User (Admin/Driver) ] <--> [ 0. FLEETIX System ] <--> [ Google AI ]
+    [ User (Admin/Driver) ] <--> [ 0. Fleet-Core System ] <--> [ Google AI ]
     ```
 
 *   **DFD Level 1 (Example: AI Trip Planner)**
@@ -284,10 +284,10 @@ This document contains the detailed content for a project presentation on the FL
 ### **Slide 18: Conclusion**
 
 *   **Summary of Work Done**
-    This project successfully developed "FLEETIX," a modern, AI-driven web application prototype for fleet management. We implemented core features including a role-based dashboard, an AI trip planner, an AI expense scanner, and modules for managing vehicles and employees. The application features a clean, professional, and responsive design with theming support.
+    This project successfully developed "Fleet-Core," a modern, AI-driven web application prototype for fleet management. We implemented core features including a role-based dashboard, an AI trip planner, an AI expense scanner, and modules for managing vehicles and employees. The application features a clean, professional, and responsive design with theming support.
 
 *   **Final Thoughts on Project Impact**
-    FLEETIX demonstrates the significant potential of combining a user-friendly interface with AI to solve complex logistical challenges. It serves as a robust foundation for a full-featured fleet management system that can deliver real value by increasing efficiency, reducing costs, and providing actionable insights.
+    Fleet-Core demonstrates the significant potential of combining a user-friendly interface with AI to solve complex logistical challenges. It serves as a robust foundation for a full-featured fleet management system that can deliver real value by increasing efficiency, reducing costs, and providing actionable insights.
 
 ---
 

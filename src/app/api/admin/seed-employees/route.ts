@@ -7,7 +7,7 @@ const fleetEmployees = [
   {
     name: "Michael Rodriguez",
     employeeId: "EMP001",
-    email: "michael.rodriguez@fleetix.com",
+    email: "michael.rodriguez@fleet-core.com",
     phone: "+1-555-0101",
     department: "Operations",
     position: "Senior Driver",
@@ -20,7 +20,7 @@ const fleetEmployees = [
   {
     name: "Sarah Johnson",
     employeeId: "EMP002",
-    email: "sarah.johnson@fleetix.com",
+    email: "sarah.johnson@fleet-core.com",
     phone: "+1-555-0201",
     department: "Operations",
     position: "Driver",
@@ -33,7 +33,7 @@ const fleetEmployees = [
   {
     name: "James Wilson",
     employeeId: "EMP003",
-    email: "james.wilson@fleetix.com",
+    email: "james.wilson@fleet-core.com",
     phone: "+1-555-0301",
     department: "Operations",
     position: "Driver",
@@ -46,7 +46,7 @@ const fleetEmployees = [
   {
     name: "Lisa Chen",
     employeeId: "EMP004",
-    email: "lisa.chen@fleetix.com",
+    email: "lisa.chen@fleet-core.com",
     phone: "+1-555-0401",
     department: "Operations",
     position: "Driver",
@@ -59,7 +59,7 @@ const fleetEmployees = [
   {
     name: "Robert Martinez",
     employeeId: "EMP005",
-    email: "robert.martinez@fleetix.com",
+    email: "robert.martinez@fleet-core.com",
     phone: "+1-555-0501",
     department: "Operations",
     position: "Driver",
@@ -72,7 +72,7 @@ const fleetEmployees = [
   {
     name: "Jennifer Davis",
     employeeId: "EMP006",
-    email: "jennifer.davis@fleetix.com",
+    email: "jennifer.davis@fleet-core.com",
     phone: "+1-555-0601",
     department: "Operations",
     position: "Driver",
@@ -85,7 +85,7 @@ const fleetEmployees = [
   {
     name: "Thomas Anderson",
     employeeId: "EMP007",
-    email: "thomas.anderson@fleetix.com",
+    email: "thomas.anderson@fleet-core.com",
     phone: "+1-555-0701",
     department: "Operations",
     position: "Driver",
@@ -98,7 +98,7 @@ const fleetEmployees = [
   {
     name: "Amanda Taylor",
     employeeId: "EMP008",
-    email: "amanda.taylor@fleetix.com",
+    email: "amanda.taylor@fleet-core.com",
     phone: "+1-555-0801",
     department: "Operations",
     position: "Driver",
@@ -111,7 +111,7 @@ const fleetEmployees = [
   {
     name: "Christopher Brown",
     employeeId: "EMP009",
-    email: "christopher.brown@fleetix.com",
+    email: "christopher.brown@fleet-core.com",
     phone: "+1-555-0901",
     department: "Operations",
     position: "Driver",
@@ -124,7 +124,7 @@ const fleetEmployees = [
   {
     name: "Jessica White",
     employeeId: "EMP010",
-    email: "jessica.white@fleetix.com",
+    email: "jessica.white@fleet-core.com",
     phone: "+1-555-1001",
     department: "Operations",
     position: "Driver",
@@ -137,7 +137,7 @@ const fleetEmployees = [
   {
     name: "Daniel Garcia",
     employeeId: "EMP011",
-    email: "daniel.garcia@fleetix.com",
+    email: "daniel.garcia@fleet-core.com",
     phone: "+1-555-1101",
     department: "Maintenance",
     position: "Fleet Mechanic",
@@ -150,7 +150,7 @@ const fleetEmployees = [
   {
     name: "Ashley Miller",
     employeeId: "EMP012",
-    email: "ashley.miller@fleetix.com",
+    email: "ashley.miller@fleet-core.com",
     phone: "+1-555-1201",
     department: "Maintenance",
     position: "Fleet Mechanic",
@@ -163,7 +163,7 @@ const fleetEmployees = [
   {
     name: "Kevin Thompson",
     employeeId: "EMP013",
-    email: "kevin.thompson@fleetix.com",
+    email: "kevin.thompson@fleet-core.com",
     phone: "+1-555-1301",
     department: "Operations",
     position: "Fleet Supervisor",
@@ -176,7 +176,7 @@ const fleetEmployees = [
   {
     name: "Nicole Lee",
     employeeId: "EMP014",
-    email: "nicole.lee@fleetix.com",
+    email: "nicole.lee@fleet-core.com",
     phone: "+1-555-1401",
     department: "Operations",
     position: "Fleet Coordinator",
@@ -189,7 +189,7 @@ const fleetEmployees = [
   {
     name: "Ryan Clark",
     employeeId: "EMP015",
-    email: "ryan.clark@fleetix.com",
+    email: "ryan.clark@fleet-core.com",
     phone: "+1-555-1501",
     department: "Operations",
     position: "Driver",

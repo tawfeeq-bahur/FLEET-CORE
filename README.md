@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚛 FLEETIX
+# 🚛 Fleet-Core
 
 ### *AI-Powered Fleet Management & Logistics Intelligence Platform*
 
@@ -20,11 +20,11 @@
 
 ---
 
-## 🎯 What is FLEETIX?
+## 🎯 What is Fleet-Core?
 
 ```mermaid
 graph LR
-    A["🚛 Your Fleet Operations"] -->|"Monitor & Analyze"| B["🚛 FLEETIX Platform"]
+    A["🚛 Your Fleet Operations"] -->|"Monitor & Analyze"| B["🚛 Fleet-Core Platform"]
     C["📋 Manual Trip Planning"] -->|"AI Automation"| B
     D["🧾 Paper Receipts"] -->|"Smart Scanning"| B
     B -->|"Optimizes"| E["✅ Efficient Routes"]
@@ -667,7 +667,7 @@ erDiagram
 
 ```mermaid
 timeline
-    title FLEETIX Development Roadmap
+    title Fleet-Core Development Roadmap
     section V1.0 (Current - Aug 2026)
         AI Trip Planner : AI Expense Scanner : Fleet Dashboard : Vehicle & Employee CRUD : Routes & Emissions : MongoDB Integration
     section V1.5 (Oct 2026)
@@ -747,7 +747,7 @@ git push origin feature/your-feature-name
 <details>
 <summary><strong>Q: Do I need MongoDB installed locally?</strong></summary>
 
-**A:** Yes, FLEETIX uses MongoDB for data persistence. Install [MongoDB Community Edition](https://www.mongodb.com/try/download/community) and [MongoDB Compass](https://www.mongodb.com/products/compass) for a GUI. The app connects to `mongodb://localhost:27017` by default.
+**A:** Yes, Fleet-Core uses MongoDB for data persistence. Install [MongoDB Community Edition](https://www.mongodb.com/try/download/community) and [MongoDB Compass](https://www.mongodb.com/products/compass) for a GUI. The app connects to `mongodb://localhost:27017` by default.
 
 </details>
 
@@ -775,7 +775,7 @@ git push origin feature/your-feature-name
 <details>
 <summary><strong>Q: Can I deploy this to production?</strong></summary>
 
-**A:** Yes! FLEETIX includes an `apphosting.yaml` for Firebase App Hosting and works seamlessly with Vercel. For production, configure proper MongoDB Atlas credentials and secure your API keys.
+**A:** Yes! Fleet-Core includes an `apphosting.yaml` for Firebase App Hosting and works seamlessly with Vercel. For production, configure proper MongoDB Atlas credentials and secure your API keys.
 
 </details>
 
@@ -834,6 +834,6 @@ git push origin feature/your-feature-name
 
 **AI-powered logistics. Real-time insights. Zero guesswork.**
 
-[⬆ Back to Top](#-fleetix)
+[⬆ Back to Top](#-fleet-core)
 
 </div>

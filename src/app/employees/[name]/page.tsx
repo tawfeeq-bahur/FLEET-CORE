@@ -60,7 +60,7 @@ export default function EmployeeDetailsPage() {
                 <CardContent className="text-sm text-muted-foreground space-y-3">
                     <div className="flex items-center gap-2">
                         <Mail className="w-4 h-4"/>
-                        <span>{employeeName.toLowerCase().replace(' ', '.')}@fleetix.com</span>
+                        <span>{employeeName.toLowerCase().replace(' ', '.')}@fleet-core.com</span>
                     </div>
                      <div className="flex items-center gap-2">
                         <Phone className="w-4 h-4"/>

@@ -1,4 +1,4 @@
-# FLEETIX Setup Instructions
+# Fleet-Core Setup Instructions
 
 ## Environment Variables Required
 

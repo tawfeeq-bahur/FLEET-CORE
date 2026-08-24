@@ -731,7 +731,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   const menuItems = user.role === 'admin' ? adminMenuItems : employeeMenuItems;
-  const userEmail = user.role === 'admin' ? 'admin@fleetix.com' : `${user.username.toLowerCase().replace(' ', '.')}@fleetix.com`;
+  const userEmail = user.role === 'admin' ? 'admin@fleet-core.com' : `${user.username.toLowerCase().replace(' ', '.')}@fleet-core.com`;
   const userName = user.username;
   const userFallback = userName.substring(0, 2).toUpperCase();
 
@@ -746,7 +746,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                             F
                         </div>
                         <div className="flex flex-col">
-                            <span className="font-semibold font-headline text-base tracking-tight italic">FLEETIX</span>
+                            <span className="font-semibold font-headline text-base tracking-tight italic">Fleet-Core</span>
                             <span className="text-[9px] font-mono tracking-widest text-muted-foreground uppercase">Logistics Ledger</span>
                         </div>
                     </div>
