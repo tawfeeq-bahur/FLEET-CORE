@@ -24,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'FleetFlow',
+  title: 'FLEETIX',
   description: 'AI-Powered Fleet Management',
 };
 

@@ -86,7 +86,7 @@ export default function ProfilePage() {
                         </div>
                         <div className="space-y-1">
                             <Label htmlFor="email">Email Address</Label>
-                            <Input id="email" value={`${user.username.toLowerCase()}@fleetflow.com`} readOnly />
+                            <Input id="email" value={`${user.username.toLowerCase()}@fleetix.com`} readOnly />
                         </div>
                     </div>
                     <div className="space-y-1">

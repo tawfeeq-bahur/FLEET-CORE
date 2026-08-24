@@ -9,10 +9,10 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-// Stub for medication assistant flow since the actual flow is not defined in this fleet manager project
+// Stub for medication assistant flow since the actual flow is not defined in this FLEETIX project
 async function medicationAssistant(input: { query: string }): Promise<{ response: string; disclaimer?: string }> {
   return {
-    response: "This is a placeholder response. The AI Medication Assistant flow is not implemented in this Fleet Manager application.",
+    response: "This is a placeholder response. The AI Medication Assistant flow is not implemented in this FLEETIX application.",
     disclaimer: "Consult a healthcare professional for actual medical questions."
   };
 }

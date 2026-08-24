@@ -1,4 +1,4 @@
-# Fleet Manager Setup Instructions
+# FLEETIX Setup Instructions
 
 ## Environment Variables Required
 

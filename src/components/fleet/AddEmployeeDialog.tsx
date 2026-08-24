@@ -153,7 +153,7 @@ export function AddEmployeeDialog({ open, onOpenChange, onEmployeeAdded }: AddEm
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., john@fleetflow.com" {...field} />
+                    <Input placeholder="e.g., john@fleetix.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

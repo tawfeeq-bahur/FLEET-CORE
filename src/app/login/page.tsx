@@ -68,7 +68,7 @@ export default function LoginPage() {
           <div className="mx-auto p-3 bg-primary/10 rounded-full w-fit mb-4">
             <Truck className="h-8 w-8 text-primary" />
           </div>
-          <CardTitle className="text-2xl font-headline">Welcome to FleetFlow</CardTitle>
+          <CardTitle className="text-2xl font-headline">Welcome to FLEETIX</CardTitle>
           <CardDescription>Enter your credentials to access your dashboard.</CardDescription>
         </CardHeader>
         <CardContent>
