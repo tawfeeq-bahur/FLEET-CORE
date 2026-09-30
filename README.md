@@ -814,7 +814,7 @@ git push origin feature/your-feature-name
 
 **[Tawfeeq Bahur (7afe)](https://www.linkedin.com/in/tawfeeqb/)** & **[Deepak J (JD)](https://www.linkedin.com/in/deepak-j-1206hd/)**
 
-📧 tawfeeqbahur@gmail.com • deepakjd122@gmail.com
+📧 tawfeeqbahur@gmail.com • deepakjeyepandi@gmail.com
 
 **With:** Next.js + React + Genkit + Google Gemini + MongoDB + ❤️
 
